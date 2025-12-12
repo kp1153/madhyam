@@ -1,5 +1,11 @@
-import category from "./category";
-import article from "./article";
-import author from "./author";
+import categoryType from "./categoryType";
+import postType from "./postType";
+import authorType from "./authorType";
+import { blockContentType } from "./blockContentType";
 
-export const schemaTypes = [category, article, author];
+export const schemaTypes = [
+  categoryType,
+  postType,
+  authorType,
+  blockContentType,
+];
