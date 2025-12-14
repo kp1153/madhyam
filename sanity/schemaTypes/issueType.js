@@ -1,0 +1,136 @@
+export default {
+  name: "issue",
+  title: "अंक",
+  type: "document",
+  fields: [
+    {
+      name: "issueNumber",
+      title: "अंक संख्या",
+      type: "number",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "year",
+      title: "वर्ष",
+      type: "number",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "month",
+      title: "माह",
+      type: "string",
+      options: {
+        list: [
+          { title: "जनवरी", value: "january" },
+          { title: "फरवरी", value: "february" },
+          { title: "मार्च", value: "march" },
+          { title: "अप्रैल", value: "april" },
+          { title: "मई", value: "may" },
+          { title: "जून", value: "june" },
+          { title: "जुलाई", value: "july" },
+          { title: "अगस्त", value: "august" },
+          { title: "सितंबर", value: "september" },
+          { title: "अक्टूबर", value: "october" },
+          { title: "नवंबर", value: "november" },
+          { title: "दिसंबर", value: "december" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: (doc) => `issue-${doc.issueNumber}-${doc.year}`,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "coverImage",
+      title: "कवर इमेज",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "pdfFile",
+      title: "PDF फाइल",
+      type: "file",
+      options: {
+        accept: ".pdf",
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "description",
+      title: "विवरण",
+      type: "text",
+      rows: 3,
+    },
+    {
+      name: "isCurrent",
+      title: "वर्तमान अंक है?",
+      type: "boolean",
+      initialValue: false,
+      description: "केवल एक अंक को वर्तमान के रूप में चिह्नित करें",
+    },
+    {
+      name: "publishedAt",
+      title: "प्रकाशन तिथि",
+      type: "datetime",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "order",
+      title: "क्रम संख्या",
+      type: "number",
+      description: "अंकों को क्रम में दिखाने के लिए (नया = छोटी संख्या)",
+    },
+  ],
+  orderings: [
+    {
+      title: "नवीनतम पहले",
+      name: "newestFirst",
+      by: [{ field: "publishedAt", direction: "desc" }],
+    },
+    {
+      title: "अंक संख्या",
+      name: "issueNumber",
+      by: [{ field: "issueNumber", direction: "desc" }],
+    },
+  ],
+  preview: {
+    select: {
+      issueNumber: "issueNumber",
+      year: "year",
+      month: "month",
+      isCurrent: "isCurrent",
+      media: "coverImage",
+    },
+    prepare(selection) {
+      const { issueNumber, year, month, isCurrent } = selection;
+      const monthMap = {
+        january: "जनवरी",
+        february: "फरवरी",
+        march: "मार्च",
+        april: "अप्रैल",
+        may: "मई",
+        june: "जून",
+        july: "जुलाई",
+        august: "अगस्त",
+        september: "सितंबर",
+        october: "अक्टूबर",
+        november: "नवंबर",
+        december: "दिसंबर",
+      };
+      return {
+        title: `अंक ${issueNumber} - ${monthMap[month]} ${year}`,
+        subtitle: isCurrent ? "✓ वर्तमान अंक" : "",
+        media: selection.media,
+      };
+    },
+  },
+};

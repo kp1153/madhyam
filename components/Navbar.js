@@ -6,116 +6,101 @@ import { useState } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navLinks = [
+    { title: "होम", href: "/" },
+    { title: "वर्तमान अंक", href: "/current-issue" },
+    { title: "पुराने अंक", href: "/archives" },
+    { title: "आयोजन", href: "/events" },
+    { title: "हमारे लेखक", href: "/authors" },
+    {
+      title: "हिंदी साहित्य सम्मेलन",
+      href: "/hindi-sahitya-sammelan",
+    },
+    { title: "माध्यम पत्रिका", href: "/about" },
+  ];
+
   return (
-    <header className="w-full border-b border-amber-200 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 shadow-sm">
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Hamburger */}
+    <header
+      className="w-full border-b-2 border-orange-600 shadow-xl"
+      style={{ background: "rgba(243, 162, 45, 1)" }}
+    >
+      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        {/* Hamburger Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-gray-900 hover:text-orange-600"
+          className="text-gray-900 hover:text-gray-700 transition-colors z-50 lg:hidden"
+          aria-label="Menu"
         >
           <svg
-            className="w-7 h-7"
+            className="w-8 h-8"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
           </svg>
         </button>
 
         {/* पत्रिका का नाम - Center */}
         <Link
           href="/"
-          className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-bold tracking-wide text-gray-900 hover:text-orange-700 transition-colors"
+          className="absolute left-1/2 transform -translate-x-1/2 text-4xl font-bold tracking-widest text-gray-900 hover:scale-105 transition-transform duration-300"
         >
           माध्यम
         </Link>
-
-        {/* सदस्यता - Right */}
-        <Link
-          href="/subscribe"
-          className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 font-medium transition-colors text-sm"
-        >
-          सदस्यता
-        </Link>
       </nav>
 
-      {/* Dropdown Menu */}
+      {/* Desktop Menu - Hidden on Mobile */}
+      <div
+        className="hidden lg:block border-t border-orange-700 backdrop-blur-sm"
+        style={{ background: "rgba(243, 162, 45, 0.95)" }}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-3">
+          <div className="flex items-center justify-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-4 py-2 text-gray-900 hover:text-gray-700 hover:bg-orange-300 rounded-md font-medium transition-all duration-200 text-sm"
+              >
+                {link.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="border-t border-amber-200 bg-white shadow-lg">
-          <div className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link
-              href="/latest"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              ताज़ा अंक
-            </Link>
-            <Link
-              href="/issues"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              अंक
-            </Link>
-            <Link
-              href="/stories"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              कहानी
-            </Link>
-            <Link
-              href="/poems"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              कविता
-            </Link>
-            <Link
-              href="/novel"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              उपन्यास
-            </Link>
-            <Link
-              href="/criticism"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              आलोचना
-            </Link>
-            <Link
-              href="/essays"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              निबंध
-            </Link>
-            <Link
-              href="/interviews"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              साक्षात्कार
-            </Link>
-            <Link
-              href="/reviews"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              पुस्तक समीक्षा
-            </Link>
-            <Link
-              href="/events"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              आयोजन
-            </Link>
-            <Link
-              href="/authors"
-              className="text-gray-900 hover:text-orange-600 font-medium py-2"
-            >
-              लेखक
-            </Link>
+        <div
+          className="lg:hidden border-t-2 border-orange-600 shadow-2xl"
+          style={{ background: "rgba(243, 162, 45, 1)" }}
+        >
+          <div className="max-w-7xl mx-auto px-6 py-6 space-y-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block text-gray-900 hover:text-gray-700 hover:bg-orange-300 font-semibold py-3 px-4 rounded-lg transition-all duration-200 border border-transparent hover:border-orange-600"
+              >
+                {link.title}
+              </Link>
+            ))}
           </div>
         </div>
       )}
