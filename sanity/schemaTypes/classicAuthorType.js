@@ -117,7 +117,7 @@ export default defineType({
       const { title, subtitle } = selection;
       return {
         title: title,
-        subtitle: subtitle ? `जन्म: ${subtitle}` : "",
+        subtitle: subtitle ? जन्म: ${subtitle} : "",
         media: selection.media,
       };
     },
