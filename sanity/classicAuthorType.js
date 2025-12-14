@@ -1,15 +1,17 @@
-export default {
+import { defineField, defineType } from "sanity";
+
+export default defineType({
   name: "classicAuthor",
   title: "क्लासिक लेखक",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "name",
       title: "नाम",
       type: "string",
       validation: (Rule) => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -17,37 +19,37 @@ export default {
         source: "name",
       },
       validation: (Rule) => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: "photo",
       title: "फोटो",
       type: "image",
       options: {
         hotspot: true,
       },
-    },
-    {
+    }),
+    defineField({
       name: "birthYear",
       title: "जन्म वर्ष",
       type: "number",
-    },
-    {
+    }),
+    defineField({
       name: "deathYear",
       title: "मृत्यु वर्ष",
       type: "number",
-    },
-    {
+    }),
+    defineField({
       name: "birthPlace",
       title: "जन्म स्थान",
       type: "string",
-    },
-    {
+    }),
+    defineField({
       name: "bio",
       title: "जीवनी/परिचय",
       type: "text",
       rows: 5,
-    },
-    {
+    }),
+    defineField({
       name: "works",
       title: "रचनाएं",
       type: "array",
@@ -97,13 +99,13 @@ export default {
           },
         },
       ],
-    },
-    {
+    }),
+    defineField({
       name: "order",
       title: "क्रम संख्या",
       type: "number",
       description: "लेखकों को क्रम में दिखाने के लिए",
-    },
+    }),
   ],
   preview: {
     select: {
@@ -120,4 +122,4 @@ export default {
       };
     },
   },
-};
+});
