@@ -20,6 +20,13 @@ export default function Footer() {
           माध्यम — शोध एवं साहित्यिक पत्रिका
         </p>
 
+        {/* About Editor link (बस यही जोड़ा गया है) */}
+        <p className="mt-3 text-sm">
+          <Link href="/about-editor" className="underline hover:text-gray-700">
+            संपादक के बारे में
+          </Link>
+        </p>
+
         {/* डेवलपर क्रेडिट */}
         <p className="mt-6 text-sm">
           Web Developer:{" "}
