@@ -56,12 +56,18 @@ export default async function ArchivesPage() {
               >
                 {/* Cover Image */}
                 <div className="relative h-80 bg-gray-100">
-                  <Image
-                    src={issue.coverImageUrl}
-                    alt={`अंक ${issue.issueNumber}`}
-                    fill
-                    className="object-cover"
-                  />
+                  {issue.coverImageUrl ? (
+                    <Image
+                      src={issue.coverImageUrl}
+                      alt={`अंक ${issue.issueNumber}`}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      📄
+                    </div>
+                  )}
                   {issue.isCurrent && (
                     <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                       नवीनतम

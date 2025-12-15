@@ -1,4 +1,4 @@
-// app/sammelan/page.js (या app/index.js)
+// components/SammelanSection.js
 
 import React from "react";
 
@@ -17,7 +17,6 @@ const sammelanDetails = {
       role: "प्रथम प्रधान मंत्री",
       name: "पुरुषोत्तम दास टंडन ('सम्मेलन के प्राण')",
     },
-    // अन्य प्रमुख व्यक्ति जोड़े जा सकते हैं
   ],
   objectives: [
     "हिन्दी भाषा, साहित्य और देवनागरी लिपि का व्यापक प्रचार-प्रसार करना।",
@@ -30,9 +29,12 @@ const sammelanDetails = {
 
 // --- मुख्य कंपोनेंट ---
 
-export default function HindiSahityaSammelanPage() {
+export default function SammelanSection() {
   return (
-    <main className="min-h-screen bg-white p-4 sm:p-8">
+    <main
+      id="sammelan-section"
+      className="min-h-screen bg-white p-4 sm:p-8 scroll-mt-20"
+    >
       {/* Header/Title Section */}
       <header className="text-center py-10 bg-red-800 text-white rounded-lg shadow-xl max-w-5xl mx-auto mb-10">
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-2">
@@ -113,14 +115,6 @@ export default function HindiSahityaSammelanPage() {
             ))}
           </div>
         </section>
-
-        {/* Footer Placeholder */}
-        <footer className="mt-12 text-center text-sm text-gray-500">
-          <p className="border-t pt-4">
-            © {new Date().getFullYear()} हिन्दी साहित्य सम्मेलन, प्रयाग। |
-            राष्ट्रभाषा हिन्दी के विकास को समर्पित।
-          </p>
-        </footer>
       </div>
     </main>
   );

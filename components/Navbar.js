@@ -14,9 +14,9 @@ export default function Navbar() {
     { title: "हमारे लेखक", href: "/authors" },
     {
       title: "हिंदी साहित्य सम्मेलन",
-      href: "/hindi-sahitya-sammelan",
+      href: "/#sammelan-section",
     },
-    { title: "माध्यम पत्रिका", href: "/about" },
+    { title: "माध्यम पत्रिका", href: "/#about-section" },
   ];
 
   return (
