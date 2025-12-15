@@ -44,7 +44,7 @@ export default async function CurrentIssuePage() {
   const issue = await getCurrentIssue();
 
   if (!issue) {
-    notFound(); // अब तभी आएगा जब सच में data नहीं होगा
+    notFound();
   }
 
   return (
@@ -65,7 +65,7 @@ export default async function CurrentIssuePage() {
             <div className="relative h-[500px] md:h-[600px] bg-gray-100 rounded-lg overflow-hidden shadow-lg">
               {issue.coverImage ? (
                 <Image
-                  src={issue.coverImage} // 👈 Cloudinary URL string
+                  src={issue.coverImage} // 👈 direct Cloudinary URL
                   alt={`अंक ${issue.issueNumber}`}
                   fill
                   priority
@@ -105,7 +105,7 @@ export default async function CurrentIssuePage() {
               <div className="space-y-4">
                 {issue.pdfUrl && (
                   <a
-                    href={issue.pdfUrl} // 👈 direct Vercel Blob URL
+                    href={issue.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-4 px-6 rounded-lg font-bold text-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg"
