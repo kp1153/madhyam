@@ -7,21 +7,28 @@ export default function AboutEditorPage() {
         संपादक के बारे में
       </h1>
 
-      {/* Editor Images */}
-      <div className="flex justify-center gap-4 mb-8">
+      {/* Editor Images — तीनों */}
+      <div className="flex justify-center gap-4 mb-10 flex-wrap">
         <Image
           src="/editor/rajesh-1.jpg"
           alt="प्रो. राजेश कुमार गर्ग"
-          width={150}
-          height={200}
-          className="rounded shadow"
+          width={160}
+          height={220}
+          className="rounded shadow object-cover"
         />
         <Image
           src="/editor/rajesh-2.jpg"
           alt="प्रो. राजेश कुमार गर्ग"
-          width={150}
-          height={200}
-          className="rounded shadow"
+          width={160}
+          height={220}
+          className="rounded shadow object-cover"
+        />
+        <Image
+          src="/editor/rajesh-3.jpg"
+          alt="प्रो. राजेश कुमार गर्ग"
+          width={160}
+          height={220}
+          className="rounded shadow object-cover"
         />
       </div>
 
@@ -41,7 +48,8 @@ export default function AboutEditorPage() {
 
         <p>
           आप कई पत्रिकाओं के सम्मान्य संपादक हैं, जिनमें इलाहाबाद विश्वविद्यालय
-          की पत्रिका <strong>“अनुसंधान”</strong> विशेष रूप से उल्लेखनीय है।
+          की पत्रिका <strong>“अनुसंधान”</strong>
+          विशेष रूप से उल्लेखनीय है।
         </p>
 
         <p>
