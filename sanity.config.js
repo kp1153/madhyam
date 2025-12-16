@@ -1,16 +1,16 @@
 "use client";
 
-import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-
-import { apiVersion, dataset, projectId } from "./sanity/env";
-import { schema } from "./sanity/schemaTypes";
+import { schema } from "./sanity/schemaTypes/index";
 
 export default defineConfig({
+  projectId: "whorua5k",
+  dataset: "production",
+  apiVersion: "2023-05-03",
   basePath: "/studio",
-  projectId,
-  dataset,
-  schema,
-  plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
+
+  schema: schema,
+
+  plugins: [structureTool()],
 });

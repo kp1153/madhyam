@@ -8,6 +8,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["@sanity/vision", "isomorphic-dompurify", "jsdom"],
 };
 
 module.exports = nextConfig;

@@ -19,8 +19,21 @@ export default defineType({
       validation: (Rule) => Rule.required().error("वर्ष आवश्यक है"),
     }),
     defineField({
-      name: "month",
-      title: "माह",
+      name: "frequency",
+      title: "प्रकाशन आवृत्ति",
+      type: "string",
+      options: {
+        list: [
+          { title: "मासिक", value: "monthly" },
+          { title: "छमाही", value: "biannual" },
+        ],
+      },
+      initialValue: "biannual",
+      validation: (Rule) => Rule.required().error("आवृत्ति आवश्यक है"),
+    }),
+    defineField({
+      name: "period",
+      title: "अवधि",
       type: "string",
       options: {
         list: [
@@ -36,9 +49,32 @@ export default defineType({
           { title: "अक्टूबर", value: "october" },
           { title: "नवंबर", value: "november" },
           { title: "दिसंबर", value: "december" },
+          { title: "जनवरी-जून (छमाही)", value: "jan-june" },
+          { title: "जुलाई-दिसंबर (छमाही)", value: "july-dec" },
         ],
       },
-      validation: (Rule) => Rule.required().error("माह आवश्यक है"),
+      validation: (Rule) => Rule.required().error("अवधि आवश्यक है"),
+      hidden: ({ parent }) => !parent?.frequency,
+    }),
+    defineField({
+      name: "isSpecialIssue",
+      title: "विशेष अंक है?",
+      type: "boolean",
+      initialValue: false,
+      description: "संयुक्तांक, विशेषांक आदि के लिए",
+    }),
+    defineField({
+      name: "specialIssueType",
+      title: "विशेष अंक का प्रकार",
+      type: "string",
+      options: {
+        list: [
+          { title: "संयुक्तांक", value: "combined" },
+          { title: "विशेषांक", value: "special" },
+          { title: "सहस्त्राब्दि अंक", value: "millennium" },
+        ],
+      },
+      hidden: ({ parent }) => !parent?.isSpecialIssue,
     }),
     defineField({
       name: "slug",
@@ -111,13 +147,26 @@ export default defineType({
     select: {
       issueNumber: "issueNumber",
       year: "year",
-      month: "month",
+      period: "period",
+      frequency: "frequency",
+      isSpecialIssue: "isSpecialIssue",
+      specialIssueType: "specialIssueType",
       isCurrent: "isCurrent",
       coverImage: "coverImage",
     },
     prepare(selection) {
-      const { issueNumber, year, month, isCurrent, coverImage } = selection;
-      const monthMap = {
+      const {
+        issueNumber,
+        year,
+        period,
+        frequency,
+        isSpecialIssue,
+        specialIssueType,
+        isCurrent,
+        coverImage,
+      } = selection;
+
+      const periodMap = {
         january: "जनवरी",
         february: "फरवरी",
         march: "मार्च",
@@ -130,10 +179,25 @@ export default defineType({
         october: "अक्टूबर",
         november: "नवंबर",
         december: "दिसंबर",
+        "jan-june": "जनवरी-जून",
+        "july-dec": "जुलाई-दिसंबर",
       };
+
+      const specialTypeMap = {
+        combined: "संयुक्तांक",
+        special: "विशेषांक",
+        millennium: "सहस्त्राब्दि अंक",
+      };
+
+      const frequencyText = frequency === "biannual" ? "छमाही" : "मासिक";
+      const periodText = periodMap[period] || period;
+      const specialText = isSpecialIssue
+        ? ` (${specialTypeMap[specialIssueType]})`
+        : "";
+
       return {
-        title: `अंक ${issueNumber} - ${monthMap[month]} ${year}`,
-        subtitle: isCurrent ? "✓ वर्तमान अंक" : "",
+        title: `अंक ${issueNumber} - ${periodText} ${year}${specialText}`,
+        subtitle: `${frequencyText}${isCurrent ? " • ✓ वर्तमान अंक" : ""}`,
         media: coverImage ? (
           <img
             src={coverImage}
